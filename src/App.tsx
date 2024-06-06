@@ -1,6 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { ACESFilmicToneMapping, SRGBColorSpace } from "three";
 import { Globe } from "./Globe";
+// import { Stars } from "@react-three/drei";
 
 export const App = () => {
   return (
@@ -12,7 +13,6 @@ export const App = () => {
           toneMapping: ACESFilmicToneMapping,
           outputColorSpace: SRGBColorSpace,
         }}
-        className="bg-black"
         camera={{
           fov: 45,
           near: 0.1,
@@ -20,6 +20,15 @@ export const App = () => {
           position: [3, 2, 6],
         }}
       >
+        {/* <Stars
+          radius={1}
+          depth={50}
+          count={5000}
+          factor={4}
+          saturation={0}
+          fade
+          speed={1}
+        /> */}
         <Globe />
       </Canvas>
     </main>
