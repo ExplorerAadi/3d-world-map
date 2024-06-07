@@ -3,6 +3,7 @@ import { Group, Object3DEventMap, TextureLoader } from "three";
 import { OrbitControls } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import SpherePoints from "./SpherePoints";
+import mapData from "./map.json";
 
 export const Globe = () => {
   const { camera, gl } = useThree();
@@ -22,7 +23,15 @@ export const Globe = () => {
           />
         </mesh>
       </group>
-      <SpherePoints radius={1.5} pointCount={1} />
+      {mapData["Co-ordinates"].map((point) => (
+        <SpherePoints
+          key={`${point.lat}-${point.long}`}
+          radius={1.5}
+          lat={point.lat}
+          long={point.long}
+          pointCount={1}
+        />
+      ))}
     </>
   );
 };

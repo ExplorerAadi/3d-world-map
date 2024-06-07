@@ -1,56 +1,29 @@
+import { useLoader } from "@react-three/fiber";
 import React, { useEffect, useRef } from "react";
-import { BufferAttribute, Points } from "three";
+import { BufferAttribute, Points, TextureLoader } from "three";
 
 interface SpherePointsProps {
   radius: number;
   pointCount: number;
+  lat: number;
+  long: number;
 }
 
-const SpherePoints: React.FC<SpherePointsProps> = ({ radius, pointCount }) => {
-  //   const pointsGeometry = useMemo(() => {
-  //     const geometry = new BufferGeometry();
-
-  //     const positions = [];
-  //     const colors = [];
-
-  //     for (let i = 0; i < numPoints; i++) {
-  //       // Generate random spherical coordinates
-  //       const phi = Math.acos(2 * Math.random() - 1); // theta
-  //       const theta = Math.random() * 2 * Math.PI; // phi
-
-  //       // Convert spherical coordinates to Cartesian coordinates
-  //       const x = radius * Math.sin(phi) * Math.cos(theta);
-  //       const y = radius * Math.sin(phi) * Math.sin(theta);
-  //       const z = radius * Math.cos(phi);
-
-  //       positions.push(x, y, z);
-
-  //       // Assign color to each point
-  //       const color = new Color();
-  //       color.setHSL(Math.random(), 1, 0.5); // Random color
-  //       colors.push(color.r, color.g, color.b);
-  //     }
-
-  //     geometry.setAttribute(
-  //       "position",
-  //       new BufferAttribute(new Float32Array(positions), 3)
-  //     );
-  //     geometry.setAttribute(
-  //       "color",
-  //       new BufferAttribute(new Float32Array(colors), 3)
-  //     );
-
-  //     return geometry;
-  //   }, [radius, numPoints]);
-
+const SpherePoints: React.FC<SpherePointsProps> = ({
+  radius,
+  pointCount,
+  lat,
+  long,
+}) => {
   const pointsRef = useRef<Points>(null);
+  const pointImg = useLoader(TextureLoader, "./textures/circle.png");
 
   useEffect(() => {
     const positions = new Float32Array(pointCount * 3);
 
     for (let i = 0; i < pointCount; i++) {
-      const phi = Math.acos(2 * Math.random() - 1);
-      const theta = 2 * Math.PI * Math.random();
+      const phi = (90 - lat) * (Math.PI / 180);
+      const theta = long * (Math.PI / 180);
 
       const x = radius * Math.sin(phi) * Math.cos(theta);
       const y = radius * Math.sin(phi) * Math.sin(theta);
@@ -61,17 +34,24 @@ const SpherePoints: React.FC<SpherePointsProps> = ({ radius, pointCount }) => {
       positions[i * 3 + 2] = z;
     }
 
-    pointsRef.current?.geometry.setAttribute(
-      "position",
-      new BufferAttribute(positions, 3)
-    );
-  }, [pointCount, radius]);
+    if (pointsRef?.current) {
+      pointsRef.current.geometry.setAttribute(
+        "position",
+        new BufferAttribute(positions, 3)
+      );
+      console.log(positions);
+    }
+  }, [lat, long, pointCount, radius]);
 
   return (
     <points ref={pointsRef}>
-      {/* <circleGeometry attach="geometry" args={[0.1, 32]} /> */}
-      <bufferGeometry />
-      <pointsMaterial attach="material" color="red" size={0.1} />
+      <pointsMaterial
+        map={pointImg}
+        attach="material"
+        size={0.1}
+        sizeAttenuation
+        alphaTest={0.5}
+      />
     </points>
   );
 };
