@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { ACESFilmicToneMapping, SRGBColorSpace } from "three";
 import { Globe } from "./Globe";
-// import { Stars } from "@react-three/drei";
+import { Stars } from "@react-three/drei";
 
 export const App = () => {
   return (
@@ -20,7 +20,7 @@ export const App = () => {
           position: [3, 2, 6],
         }}
       >
-        {/* <Stars
+        <Stars
           radius={1}
           depth={50}
           count={5000}
@@ -28,7 +28,7 @@ export const App = () => {
           saturation={0}
           fade
           speed={1}
-        /> */}
+        />
         <Globe />
       </Canvas>
     </main>
