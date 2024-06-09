@@ -1,6 +1,12 @@
-import { useLoader } from "@react-three/fiber";
+import { useFrame, useLoader } from "@react-three/fiber";
 import React, { useEffect, useMemo, useRef } from "react";
-import { BufferGeometry, Points, TextureLoader } from "three";
+import {
+  BackSide,
+  BufferGeometry,
+  Points,
+  PointsMaterial,
+  TextureLoader,
+} from "three";
 import { latLongToVector3 } from "./utils";
 import mapData from "./map.json";
 
@@ -10,25 +16,26 @@ interface SpherePointsProps {
 
 export const SpherePoints: React.FC<SpherePointsProps> = ({ radius }) => {
   const pointsRef = useRef<Points>(null);
-  //   const lineRef = useRef<any>(null);
   const pointImg = useLoader(TextureLoader, "./textures/office-pin.png");
 
   const positions = useMemo(() => {
-    return mapData["Co-ordinates"].map((point) =>
-      latLongToVector3(point.lat, point.long, radius)
+    return mapData["Coordinates"].map((point) =>
+      latLongToVector3(point.lat, point.lng, radius)
     );
   }, [radius]);
+
+  useFrame((state) => {
+    const elapsedTime = state.clock.elapsedTime;
+
+    const material = pointsRef.current?.material as PointsMaterial;
+    material.size = Math.abs(Math.sin(elapsedTime * 0.8)) * 0.1 + 0.05;
+  });
 
   useEffect(() => {
     if (pointsRef.current) {
       const geometry = new BufferGeometry().setFromPoints(positions);
       pointsRef.current.geometry = geometry;
     }
-    // points.push(new Vector3(x, y, z));
-    // points.push(new Vector3(x + 1, y + 1, z + 5));
-    // if (lineRef?.current) {
-    //   lineRef.current.geometry.setFromPoints(points);
-    // }
   }, [positions]);
 
   return (
@@ -41,17 +48,9 @@ export const SpherePoints: React.FC<SpherePointsProps> = ({ radius }) => {
           size={0.1}
           sizeAttenuation
           alphaTest={0.5}
+          shadowSide={BackSide}
         />
       </points>
-      {/* <line ref={lineRef}>
-        <lineBasicMaterial
-          attach="material"
-          color="#f9ffc4"
-          linewidth={0.1}
-          linecap={"round"}
-          linejoin={"round"}
-        />
-      </line> */}
     </>
   );
 };

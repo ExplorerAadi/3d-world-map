@@ -14,16 +14,13 @@ export const Globe = () => {
       <OrbitControls args={[camera, gl.domElement]} />
       <directionalLight position={[1, 2, 3]} intensity={4.5} />
       <ambientLight intensity={4} />
-      {/* <gridHelper args={[15, 30, "#cc0", "#999"]} rotation={[0, -Math.PI, 0]} /> */}
       <group ref={groupRef}>
         <mesh scale={1.5} rotation={[0, -Math.PI / 2, 0]}>
           <sphereGeometry args={[1, 32, 32]} />
           <meshBasicMaterial map={worldMap} attach="material" />
         </mesh>
       </group>
-      {/* {mapData["Co-ordinates"].map((point) => ( */}
       <SpherePoints radius={1.5} />
-      {/* ))} */}
     </>
   );
 };

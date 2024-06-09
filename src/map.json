@@ -1,47 +1,55 @@
 {
-  "type": "Map",
-  "Co-ordinates": [
+  "Coordinates": [
     {
-      "text": "PAT",
-      "size": 1.0,
-      "country": "Patna",
-      "lat": 25.594791,
-      "long": 85.092909
+      "name": "Colombia",
+      "lat": 6.548402,
+      "lng": -76.787671
     },
     {
-      "text": "BLR",
-      "size": 1.0,
-      "country": "Bangalore",
-      "lat": 12.930544,
-      "long": 77.631952
+      "name": "San Francisco",
+      "lat": 37.753889,
+      "lng": -122.492728
     },
     {
-      "text": "USA",
-      "size": 0.5,
-      "country": "United States",
-      "lat": 37.0902,
-      "long": -95.7129
+      "name": "Nevada",
+      "lat": 40.184191,
+      "lng": -116.911828
     },
     {
-      "text": "CHN",
-      "size": 0.3,
-      "country": "China",
-      "lat": 35.8617,
-      "long": 104.1954
+      "name": "New York",
+      "lat": 42.575634,
+      "lng": -77.87321
     },
     {
-      "text": "RUS",
-      "size": 0.2,
-      "country": "Russia",
-      "lat": 61.524,
-      "long": 105.3188
+      "name": "Canada",
+      "lat": 51.092074,
+      "lng": -77.469428
     },
     {
-      "text": "JAP",
-      "size": 0.1,
-      "country": "Japan",
-      "lat": 35.701214,
-      "long": 139.695024
-    }
+      "name": "Ukraine",
+      "lat": 48.686238,
+      "lng": 28.168575
+    },
+    {
+      "name": "Moscow",
+      "lat": 53.202567,
+      "lng": 34.180391
+    },
+    {
+      "name": "Rajasthan",
+      "lat": 26.78733,
+      "lng": 71.213477
+    },
+    {
+      "name": "Myanmar",
+      "lat": 23.601202,
+      "lng": 93.922952
+    },
+    {
+      "name": "China2",
+      "lat": 26.831894,
+      "lng": 100.373381
+    },
+    { "name": "China", "lat": 34.965747, "lng": 100.364723 }
   ]
 }
