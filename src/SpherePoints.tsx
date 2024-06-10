@@ -16,7 +16,7 @@ interface SpherePointsProps {
 
 export const SpherePoints: React.FC<SpherePointsProps> = ({ radius }) => {
   const pointsRef = useRef<Points>(null);
-  const pointImg = useLoader(TextureLoader, "./textures/office-pin.png");
+  const pointImg = useLoader(TextureLoader, "./textures/circle.png");
 
   const positions = useMemo(() => {
     return mapData["Coordinates"].map((point) =>

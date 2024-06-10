@@ -27,7 +27,7 @@ export const App = () => {
           factor={4}
           saturation={0}
           fade
-          speed={1}
+          speed={2}
         />
         <Globe />
       </Canvas>

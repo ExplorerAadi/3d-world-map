@@ -1,13 +1,21 @@
 import { useRef } from "react";
-import { Group, Object3DEventMap } from "three";
+import { Group, Object3DEventMap, Vector3 } from "three";
 import { OrbitControls, useTexture } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { SpherePoints } from "./SpherePoints";
 
 export const Globe = () => {
   const { camera, gl } = useThree();
   const groupRef = useRef<Group<Object3DEventMap> | null>(null);
   const worldMap = useTexture("./textures/earth_10k.jpg");
+
+  useFrame((state) => {
+    const elapsedTime = state.clock.elapsedTime;
+    const axis = new Vector3(0, 1, 0);
+
+    const sphere = groupRef.current as Group<Object3DEventMap>;
+    sphere.setRotationFromAxisAngle(axis, elapsedTime * 0.2);
+  });
 
   return (
     <>
@@ -19,8 +27,8 @@ export const Globe = () => {
           <sphereGeometry args={[1, 32, 32]} />
           <meshBasicMaterial map={worldMap} attach="material" />
         </mesh>
+        <SpherePoints radius={1.5} />
       </group>
-      <SpherePoints radius={1.5} />
     </>
   );
 };
